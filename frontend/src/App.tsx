@@ -6,6 +6,8 @@ import DashboardView from './views/DashboardView';
 import AquariumBuilderView from './views/AquariumBuilderView';
 import ReportView from './views/ReportView';
 
+import HomeView from './views/HomeView';
+
 const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
   const { token } = useAuth();
   return token ? <>{children}</> : <Navigate to="/login" />;
@@ -14,20 +16,13 @@ const PrivateRoute = ({ children }: { children: React.ReactNode }) => {
 function AppRoutes() {
   return (
     <Routes>
+      <Route path="/" element={<HomeView />} />
       <Route path="/login" element={<LoginView />} />
       <Route 
-        path="/" 
+        path="/dashboard" 
         element={
           <PrivateRoute>
             <DashboardView />
-          </PrivateRoute>
-        } 
-      />
-      <Route 
-        path="/builder" 
-        element={
-          <PrivateRoute>
-            <AquariumBuilderView />
           </PrivateRoute>
         } 
       />

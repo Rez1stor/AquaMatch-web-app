@@ -3,7 +3,68 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --font-size: 16px;
+    
+    /* AquaMatch Brand Colors */
+    --navy-deep: #0F172A;
+    --aqua-turquoise: #2DD4BF;
+    --soft-white: #F8FAFC;
+    --warm-coral: #FB7185;
+    
+    --background: #F8FAFC;
+    --foreground: #0F172A;
+    --card: #ffffff;
+    --card-foreground: #0F172A;
+    --popover: 255 255 255;
+    --popover-foreground: #0F172A;
+    --primary: #2DD4BF;
+    --primary-foreground: #0F172A;
+    --secondary: #0F172A;
+    --secondary-foreground: #F8FAFC;
+    --muted: #e2e8f0;
+    --muted-foreground: #64748b;
+    --accent: #2DD4BF;
+    --accent-foreground: #0F172A;
+    --destructive: #FB7185;
+    --destructive-foreground: #ffffff;
+    --border: rgba(15, 23, 42, 0.1);
+    --input: transparent;
+    --input-background: #ffffff;
+    --switch-background: #cbd5e1;
+    --font-weight-medium: 500;
+    --font-weight-normal: 400;
+    --ring: #2DD4BF;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: #0F172A;
+    --foreground: #F8FAFC;
+    --card: #1e293b;
+    --card-foreground: #F8FAFC;
+    --popover: #1e293b;
+    --popover-foreground: #F8FAFC;
+    --primary: #2DD4BF;
+    --primary-foreground: #0F172A;
+    --secondary: #334155;
+    --secondary-foreground: #F8FAFC;
+    --muted: #334155;
+    --muted-foreground: #94a3b8;
+    --accent: #2DD4BF;
+    --accent-foreground: #0F172A;
+    --destructive: #FB7185;
+    --destructive-foreground: #ffffff;
+    --border: rgba(248, 250, 252, 0.1);
+    --input: rgba(248, 250, 252, 0.2);
+    --ring: #2DD4BF;
+  }
+
+  * {
+    @apply border-border outline-ring/50;
+  }
+
   body {
-    @apply bg-slate-50 text-slate-900;
+    @apply bg-background text-foreground;
   }
 }

@@ -15,17 +15,36 @@ export default function LoginView() {
     e.preventDefault();
     setError('');
     try {
+      let currentToken = '';
       if (isRegistering) {
         await api.post('/auth/register', { email, password });
-        // Automatically login after register
         const res = await api.post('/auth/login', { username: email, password });
-        login(res.data.access, email);
-        navigate('/');
+        currentToken = res.data.access;
+        login(currentToken, email);
       } else {
         const res = await api.post('/auth/login', { username: email, password });
-        login(res.data.access, email);
-        navigate('/');
+        currentToken = res.data.access;
+        login(currentToken, email);
       }
+
+      // Check pending aquarium
+      const pendingStr = localStorage.getItem('pendingAquarium');
+      if (pendingStr) {
+        const pendingData = JSON.parse(pendingStr);
+        // Save pending aquarium
+        try {
+          const saveRes = await api.post('/aquariums/', pendingData, {
+            headers: { Authorization: `Bearer ${currentToken}` }
+          });
+          localStorage.removeItem('pendingAquarium');
+          navigate(`/report/${saveRes.data.id}`);
+          return;
+        } catch (saveErr) {
+          console.error("Failed to save pending aquarium", saveErr);
+        }
+      }
+
+      navigate('/dashboard');
 
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Wystąpił błąd');
