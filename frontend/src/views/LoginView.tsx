@@ -18,20 +18,15 @@ export default function LoginView() {
       if (isRegistering) {
         await api.post('/auth/register', { email, password });
         // Automatically login after register
-        const formData = new FormData();
-        formData.append('username', email);
-        formData.append('password', password);
-        const res = await api.post('/auth/login', formData);
-        login(res.data.access_token, email);
+        const res = await api.post('/auth/login', { username: email, password });
+        login(res.data.access, email);
         navigate('/');
       } else {
-        const formData = new FormData();
-        formData.append('username', email);
-        formData.append('password', password);
-        const res = await api.post('/auth/login', formData);
-        login(res.data.access_token, email);
+        const res = await api.post('/auth/login', { username: email, password });
+        login(res.data.access, email);
         navigate('/');
       }
+
     } catch (err: any) {
       setError(err.response?.data?.detail || 'Wystąpił błąd');
     }

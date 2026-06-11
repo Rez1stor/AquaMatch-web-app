@@ -17,11 +17,9 @@ Projekt wykorzystuje nowoczesny stos technologiczny (tzw. PFRN / Python, FastAPI
   
 - **Backend:**
   - Python 3.11
-  - FastAPI (REST API, asynchroniczność)
-  - SQLAlchemy ORM
+  - Django & Django REST Framework
   - PostgreSQL (Baza danych)
-  - JWT (JSON Web Tokens - uwierzytelnianie)
-  - Uvicorn (serwer ASGI)
+  - djangorestframework-simplejwt (JSON Web Tokens - uwierzytelnianie)
 
 - **Infrastruktura:**
   - Docker & Docker Compose (konteneryzacja i orkiestracja środowiska)

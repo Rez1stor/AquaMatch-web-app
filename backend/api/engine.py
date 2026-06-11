@@ -1,7 +1,4 @@
-from typing import List
-from app.models import Species
-
-def analyze_aquarium(water_type: str, volume: float, selected_species: List[Species]):
+def analyze_aquarium(water_type, volume, selected_species):
     warnings = []
     score = 100
     
@@ -35,9 +32,9 @@ def analyze_aquarium(water_type: str, volume: float, selected_species: List[Spec
         warnings.append({"type": "error", "message": "Ryzyko łańcucha pokarmowego: W zbiorniku znajdują się drapieżniki oraz gatunki łagodne."})
         score -= 40
 
-    # Rule 4: Territorial aggression (same species or generally territorial)
+    # Rule 4: Territorial aggression
     territorial_count = sum(1 for _, tag in tags_in_tank if tag == "territorial")
-    if territorial_count > 1 and volume < 200: # Arbitrary rule: multiple territorial fish need big tank
+    if territorial_count > 1 and volume < 200:
         warnings.append({"type": "warning", "message": "Wiele ryb terytorialnych w małym zbiorniku (<200l) może prowadzić do agresji."})
         score -= 20
 
