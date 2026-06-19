@@ -1,14 +1,13 @@
 FROM python:3.11-slim
 
+WORKDIR /app
+
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-
-WORKDIR /app
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-# Start script
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py makemigrations api && python manage.py migrate && python manage.py seed && python manage.py runserver 0.0.0.0:8000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
