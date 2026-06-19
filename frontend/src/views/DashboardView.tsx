@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
-import { PlusCircle, Fish, Droplets } from 'lucide-react';
+import { PlusCircle, Fish, Droplets, Trash2 } from 'lucide-react';
 
 export default function DashboardView() {
   const [aquariums, setAquariums] = useState<any[]>([]);
@@ -22,32 +22,27 @@ export default function DashboardView() {
     }
   };
 
+  const deleteAquarium = async (id: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (window.confirm('Czy na pewno chcesz usunąć ten zbiornik?')) {
+      try {
+        await api.delete(`/aquariums/${id}`);
+        fetchAquariums();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50">
-      <nav className="bg-white shadow-sm border-b border-aqua-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16">
-            <div className="flex items-center">
-              <span className="text-2xl font-bold text-aqua-600">AquaMatch</span>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-gray-500">{user?.email}</span>
-              <button
-                onClick={logout}
-                className="text-sm text-gray-600 hover:text-gray-900"
-              >
-                Wyloguj
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
+
 
       <main className="max-w-7xl mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Twoje Zbiorniki</h1>
           <button
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/calculator')}
             className="flex items-center px-4 py-2 bg-aqua-600 text-white rounded-md hover:bg-aqua-700 transition-colors"
           >
             <PlusCircle className="w-5 h-5 mr-2" />
@@ -68,7 +63,12 @@ export default function DashboardView() {
                 <div className="p-6">
                   <div className="flex items-center justify-between">
                     <h3 className="text-xl font-bold text-gray-900">{aq.name}</h3>
-                    <Droplets className={`w-6 h-6 ${aq.water_type === 'saltwater' ? 'text-blue-500' : 'text-teal-500'}`} />
+                    <div className="flex items-center gap-2">
+                      <Droplets className={`w-6 h-6 ${aq.water_type === 'saltwater' ? 'text-blue-500' : 'text-teal-500'}`} />
+                      <button onClick={(e) => deleteAquarium(aq.id, e)} className="text-gray-400 hover:text-red-500 transition-colors">
+                        <Trash2 className="w-5 h-5" />
+                      </button>
+                    </div>
                   </div>
                   <dl className="mt-4 flex flex-col gap-2 text-sm text-gray-600">
                     <div className="flex justify-between">
@@ -80,6 +80,11 @@ export default function DashboardView() {
                       <dd className="font-medium text-gray-900">{aq.water_type === 'saltwater' ? 'Morskie' : 'Słodkowodne'}</dd>
                     </div>
                   </dl>
+                  <div className="mt-6 pt-4 border-t border-gray-100">
+                    <button className="w-full py-2 bg-primary/10 text-primary rounded-md font-medium hover:bg-primary/20 transition-colors">
+                      Otwórz akwarium
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
