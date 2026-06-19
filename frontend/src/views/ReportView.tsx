@@ -8,7 +8,6 @@ export default function ReportView() {
   const navigate = useNavigate();
   const [aquarium, setAquarium] = useState<any>(null);
   const [report, setReport] = useState<any>(null);
-  const [showReport, setShowReport] = useState<boolean>(false);
 
   useEffect(() => {
     fetchData();
@@ -98,19 +97,9 @@ export default function ReportView() {
 
           <div className="p-8 space-y-8">
             
-            {/* Report Toggle Section */}
-            {!showReport ? (
-              <div className="flex justify-center py-6">
-                <button 
-                  onClick={() => setShowReport(true)}
-                  className="px-6 py-3 bg-primary text-primary-foreground font-bold rounded-xl shadow-lg hover:bg-primary/90 transition-colors"
-                >
-                  Generuj szczegółowy raport
-                </button>
-              </div>
-            ) : (
-              <>
-                {/* Score */}
+            {/* Report Section */}
+            <>
+              {/* Score */}
                 <div className="flex flex-col md:flex-row gap-8 items-center justify-between bg-gray-50 p-6 rounded-xl border border-gray-100">
                   <div className="text-center md:text-left">
                     <h3 className="text-lg font-medium text-gray-500">Compatibility Score</h3>
@@ -158,7 +147,6 @@ export default function ReportView() {
                   )}
                 </div>
               </>
-            )}
 
             {/* Recommended Parameters */}
             {report.recommended_parameters && (

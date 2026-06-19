@@ -10,7 +10,7 @@ export default function Footer() {
           <span className="font-bold text-lg text-foreground">AquaMatch</span>
         </div>
         <p className="text-muted-foreground text-sm text-center">
-          Inteligentny system planowania obsady akwarium. Zaprojektowany z naciskiem na OOP, SOLID i KISS.
+          Twój osobisty asystent do tworzenia idealnego i bezpiecznego ekosystemu wodnego.
         </p>
         <div className="text-xs text-muted-foreground/60">
           &copy; {new Date().getFullYear()} AquaMatch. Wszystkie prawa zastrzeżone.
